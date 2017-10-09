@@ -9,7 +9,7 @@
 namespace Paytrail\E2\Http;
 
 use Paytrail\Common\Object;
-use Paytrail\Object\Payment;
+use Paytrail\E2\Object\Payment;
 
 /**
  * Class Client.
