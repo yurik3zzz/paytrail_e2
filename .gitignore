@@ -2,4 +2,3 @@
 tests/_log/*
 vendor/*
 composer.phar
-composer.lock
