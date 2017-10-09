@@ -75,7 +75,7 @@ class Client extends Object
      * @param bool|true $submit
      * @return string
      */
-    public function buildPaymentForm(Payment $payment, $submit = true)
+    public function buildPaymentForm(Payment $payment, $autoSubmit = true)
     {
         $fields = array();
         $fields['MERCHANT_ID'] = $this->_apiKey;
@@ -89,10 +89,12 @@ class Client extends Object
             $form .= '<input name="'.$key.'" type="hidden" value="'.$value.'">';
         }
 
-        $form .= '<input type="submit" value="Pay here">';
+        if (!$autoSubmit) {
+            $form .= '<input type="submit" value="Pay here">';
+        }
         $form .= '</form>';
 
-        if ($submit) {
+        if ($autoSubmit) {
             $js = '<script>';
             $js .= <<<JS
 document.getElementById('paytrail-payment-form').submit();
@@ -111,33 +113,38 @@ JS;
      * @param string $checksum Checksum to validate. $_GET["RETURN_AUTHCODE"]
      * @param string $orderNumber The order number. $_GET["ORDER_NUMBER"],
      * @param $paymentId $_GET["PAYMENT_ID"]
-     * @param float $amount $_GET["AMOUNT"],
+     * @param string $amount $_GET["AMOUNT"],
+     * @param string $currency
+     * @param string $paymentMethod
      * @param int $timestamp The timestamp of the order. $_GET["TIMESTAMP"],
      * @param string $status Payment status, $_GET["STATUS"]
      * @return bool
      */
-    public function validateChecksum($checksum, $orderNumber, $paymentId, $amount, $timestamp, $status)
+    public function validateChecksum($checksum, $orderNumber, $paymentId, $amount, $currency, $paymentMethod, $timestamp, $status)
     {
-        return $checksum === $this->calculateChecksum($orderNumber, $paymentId, $amount, $timestamp, $status);
+        return $checksum === $this->calculateChecksum($orderNumber, $paymentId, $amount, $currency, $paymentMethod, $timestamp, $status);
     }
 
     /**
      * Calculates the checksum after response.
      *
      * @param string $orderNumber The order number. $_GET["ORDER_NUMBER"],
-     * @param $paymentId $_GET["PAYMENT_ID"]
-     * @param float $amount $_GET["AMOUNT"],
+     * @param string $paymentId $_GET["PAYMENT_ID"]
+     * @param string $amount $_GET["AMOUNT"],
+     * @param string $currency
+     * @param string $paymentMethod
      * @param int $timestamp The timestamp of the order. $_GET["TIMESTAMP"],
      * @param string $status Payment status, $_GET["STATUS"]
-     *
      * @return string
      */
-    public function calculateChecksum($orderNumber, $paymentId, $amount, $timestamp, $status)
+    public function calculateChecksum($orderNumber, $paymentId, $amount, $currency, $paymentMethod, $timestamp, $status)
     {
         $data = array(
             $orderNumber,
             $paymentId,
             $amount,
+            $currency,
+            $paymentMethod,
             $timestamp,
             $status,
             $this->_apiSecret

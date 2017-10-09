@@ -28,14 +28,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = $this->makeClient();
 
-        $orderNumber    = "ORDER-12345";
-        $paymentId      = "123456789012";
-        $amount         = "200.00";
-        $timestamp      = "1491896573";
+        $orderNumber    = "IOT0910178";
+        $paymentId      = "107691197872";
+        $amount         = "2.49";
+        $currency       = "EUR";
+        $paymentMethod  = "1";
+        $timestamp      = "1507575730";
         $status         = 'PAID';
-        $returnAuthCode = '86CC6A9B9433D3AC1D8D1B8D21ED87DA3ABE2E980D3F826D1901FEF0925F5D03';
+        $returnAuthCode = 'B98B0FBFA7C07EDBF29734348B6BF00A2FFB3AAA9C93C0809F9AF342ED3E3618';
 
-        $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $paymentId, $amount, $timestamp, $status));
+        $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $paymentId, $amount, $currency, $paymentMethod, $timestamp, $status));
     }
 
     /**
@@ -45,14 +47,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = $this->makeClient();
 
-        $orderNumber    = "ORDER-12345";
-        $paymentId      = "100800639898";
-        $amount         = "19.90";
-        $timestamp      = "1507565971";
+        $orderNumber    = "IOT0910179";
+        $paymentId      = "104230263940";
+        $amount         = "9.12";
+        $currency       = "EUR";
+        $paymentMethod  = "1";
+        $timestamp      = "1507576148";
         $status         = 'PAID';
-        $returnAuthCode = '004126104CA70D2373DA6CFFB32991D57571DC870F2C2CE3E42631E6301E909C';
+        $returnAuthCode = 'D2EDDE6E87B23079D98310645C8EBE475EB6DE08277B219C0B21ACB29C4C44EA';
 
-        $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $paymentId, $amount, $timestamp, $status));
+        $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $paymentId, $amount, $currency, $paymentMethod, $timestamp, $status));
     }
 
     /**
@@ -62,14 +66,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = $this->makeClient();
 
-        $orderNumber    = "123456";
-        $paymentId      = "101547573685";
-        $amount         = "19.90";
-        $timestamp      = "1507565274";
+        $orderNumber    = "IOT09101710";
+        $paymentId      = "109928646780";
+        $amount         = "10.77";
+        $currency       = "EUR";
+        $paymentMethod  = "";
+        $timestamp      = "1507576505";
         $status         = 'CANCELLED';
-        $returnAuthCode = '302396B94BA1001F4598F5D756806B301159EAA8B028503EE79B53B59F49E426';
+        $returnAuthCode = '36E57FD43E3985FB9750598BF551C4A3BFB751CA4CDD63CD429D2B7B08DEDFFA';
 
-        $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $paymentId, $amount, $timestamp, $status));
+        $this->assertTrue($client->validateChecksum($returnAuthCode, $orderNumber, $paymentId, $amount, $currency, $paymentMethod, $timestamp, $status));
     }
 
     /**
@@ -80,14 +86,16 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $client = $this->makeClient();
 
-        $orderNumber    = "-=123456=-";
-        $paymentId      = "108654537643";
-        $amount         = 19.90;
-        $timestamp      = 1507564222;
+        $orderNumber    = "-=IOT0910179=-";
+        $paymentId      = "104230263940";
+        $amount         = "9.12";
+        $currency       = "EUR";
+        $paymentMethod  = "1";
+        $timestamp      = "1507576148";
         $status         = 'PAID';
-        $returnAuthCode = 'C7450731D359FF15EE65884CD884D27B2528CAB5A58D3DDA51E8C77DCFFCA06E';
+        $returnAuthCode = 'D2EDDE6E87B23079D98310645C8EBE475EB6DE08277B219C0B21ACB29C4C44EA';
 
-        $this->assertFalse($client->validateChecksum($returnAuthCode, $orderNumber, $paymentId, $amount, $timestamp, $status));
+        $this->assertFalse($client->validateChecksum($returnAuthCode, $orderNumber, $paymentId, $amount, $currency, $paymentMethod, $timestamp, $status));
     }
 
     /**

@@ -16,6 +16,8 @@ if ($client->validateChecksum(
     $_GET["ORDER_NUMBER"],
     $_GET["PAYMENT_ID"],
     $_GET["AMOUNT"],
+    $_GET["CURRENCY"],
+    $_GET["PAYMENT_METHOD"],
     $_GET["TIMESTAMP"],
     $_GET["STATUS"]
 )) {
