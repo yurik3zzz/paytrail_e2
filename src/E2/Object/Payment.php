@@ -6,13 +6,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Paytrail\Object;
+namespace Paytrail\E2\Object;
 
 use Paytrail\Common\DataObject;
 use Paytrail\Exception\PaymentMethodNotSupported;
 use Paytrail\Exception\TooManyProducts;
 use Paytrail\Exception\CurrencyNotSupported;
 use Paytrail\Exception\LocaleNotSupported;
+use Paytrail\Object\Product;
 
 /**
  * Class Payment.

@@ -3,7 +3,7 @@
  * User: Yura Zagoruyko
  * Date: 09.10.2017
  * Time: 12:26
- * @url http://yurik3zzz/github/paytrail_e2/tests/Paytrail/E2/index.php
+ * @url http://yurik3zzz/github/paytrail_e2/tests/Paytrail/REST/index.php
  */
 
 require(__DIR__ . '/../../../vendor/autoload.php');
@@ -12,8 +12,8 @@ use Paytrail\Object\UrlSet;
 use Paytrail\Object\Address;
 use Paytrail\Object\Contact;
 use Paytrail\Object\Product;
-use Paytrail\E2\Object\Payment;
-use Paytrail\E2\Http\Client;
+use Paytrail\REST\Object\Payment;
+use Paytrail\REST\Http\Client;
 
 function prd($data) {
     echo "<pre>";
@@ -24,9 +24,9 @@ function prd($data) {
 
 $urlSet = new UrlSet;
 $urlSet->configure(array(
-    'successUrl'      => 'http://yurik3zzz/github/paytrail_e2/tests/Paytrail/E2/success.php',
-    'failureUrl'      => 'http://yurik3zzz/github/paytrail_e2/tests/Paytrail/E2/canceled.php',
-    'notificationUrl' => 'http://yurik3zzz/github/paytrail_e2/tests/Paytrail/E2/notify.php',
+    'successUrl'      => 'http://yurik3zzz/github/paytrail_e2/tests/Paytrail/REST/success.php',
+    'failureUrl'      => 'http://yurik3zzz/github/paytrail_e2/tests/Paytrail/REST/canceled.php',
+    'notificationUrl' => 'http://yurik3zzz/github/paytrail_e2/tests/Paytrail/REST/notify.php',
 ));
 
 $address = new Address;
@@ -47,10 +47,9 @@ $contact->configure(array(
     'address'         => $address,
 ));
 
-$orderNumber = "ORDER-123456";
 $payment = new Payment;
 $payment->configure(array(
-    'orderNumber'     => $orderNumber,
+    'orderNumber'     => 1,
     'urlSet'          => $urlSet,
     'contact'         => $contact,
     'locale'          => Payment::LOCALE_ENUS,
@@ -62,16 +61,21 @@ $product->configure(array(
     'code'            => '01234',
     'amount'          => 1.00,
     'price'           => 19.90,
-    'vat'             => 24.00,
+    'vat'             => 23.00,
     'discount'        => 0.00,
     'type'            => Product::TYPE_NORMAL,
 ));
 
 $payment->addProduct($product);
-$payment->addPaymentMethods([Payment::PM_NORDEA, Payment::PM_MASTERCARD_NET]);
-$payment->setAmount(19.90)
-    ->setDescription("Order No.$orderNumber");
 
 $client = new Client('13466', '6pKF4jkv97zmqBJ3ZL8gUw5DfT2NMQ');
-$form = $client->buildPaymentForm($payment, false);
-echo $form; die;
+$client->connect();
+//prd($payment->toArray());
+
+try {
+    $result = $client->processPayment($payment);
+    header('Location: ' . $result->getUrl());
+} catch (Exception $e) {
+    //  Paytrail payment failed: Client error: `POST https://payment.paytrail.com/api-payment/create` resulted in a `400 Bad Request` response: {"errorCode":"invalid-order-number","errorMessage":"Missing or invalid order number (ORDER_NUMBER)."}
+    die('Paytrail payment failed: ' . $e->getMessage());
+}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Paytrail;
+namespace Paytrail\E2;
 
 /**
  * This file is part of Paytrail E2
@@ -10,10 +10,10 @@ namespace Paytrail;
  */
 
 use Paytrail\E2\Http\Client;
+use Paytrail\E2\Object\Payment;
 use Paytrail\Exception\PaymentMethodNotSupported;
 use Paytrail\Object\Address;
 use Paytrail\Object\Contact;
-use Paytrail\Object\Payment;
 use Paytrail\Object\Product;
 use Paytrail\Object\UrlSet;
 
