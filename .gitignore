@@ -1,4 +1,5 @@
-.idea/*
 tests/_log/*
-vendor/*
 composer.phar
+composer.lock
+.idea/
+vendor/
