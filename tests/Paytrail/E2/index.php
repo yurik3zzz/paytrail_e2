@@ -1,22 +1,11 @@
-# paytrail_e2
-Paytrail HTTP FORM API E2 client for PHP.
-
-http://docs.paytrail.com/en/index-all.html
-
-### Install using composer
-
-```json
-{
-  "require": {
-    "yurik3zzz/paytrail_e2": "~1.0"
-  }
-}
-```
-
-# Usage
-
-```php
 <?php
+/**
+ * User: Yura Zagoruyko
+ * Date: 09.10.2017
+ * Time: 12:26
+ * @url http://yurik3zzz/github/paytrail_e2/tests/Paytrail/E2/index.php
+ */
+
 require(__DIR__ . '/../../../vendor/autoload.php');
 
 use Paytrail\Object\UrlSet;
@@ -25,6 +14,13 @@ use Paytrail\Object\Contact;
 use Paytrail\Object\Payment;
 use Paytrail\Object\Product;
 use Paytrail\E2\Http\Client;
+
+function prd($data) {
+    echo "<pre>";
+    print_r($data);
+    echo "</pre>";
+    die;
+}
 
 $urlSet = new UrlSet;
 $urlSet->configure(array(
@@ -79,37 +75,3 @@ $payment->setAmount(19.90)
 $client = new Client('13466', '6pKF4jkv97zmqBJ3ZL8gUw5DfT2NMQ');
 $form = $client->buildPaymentForm($payment, false);
 echo $form; die;
-
-```
-
-# Confirming a payment
-
-```php
-
-<?php
-require(__DIR__ . '/../../../vendor/autoload.php');
-
-use Paytrail\E2\Http\Client;
-
-$client = new Client('13466', '6pKF4jkv97zmqBJ3ZL8gUw5DfT2NMQ');
-if ($client->validateChecksum(
-    $_GET["RETURN_AUTHCODE"],
-    $_GET["ORDER_NUMBER"],
-    $_GET["PAYMENT_ID"],
-    $_GET["AMOUNT"],
-    $_GET["TIMESTAMP"],
-    $_GET["STATUS"]
-)) {
-    // Payment receipt is valid
-    echo "Valid ";
-    print_r($_GET);
-}
-else {
-    // Payment receipt was not valid, possible payment fraud attempt
-    echo "Invalid ";
-    print_r($_GET);
-}
-```
-
-# License
-MIT. See [LICENSE](LICENSE).
