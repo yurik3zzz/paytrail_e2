@@ -1,7 +1,7 @@
-# paytrail_e2
-Paytrail HTTP FORM API E2 client for PHP.
+# Paytrail HTTP REST API and HTML E2 API clients for PHP.
 
-http://docs.paytrail.com/en/index-all.html
+## Description
+Implement the documentation: http://docs.paytrail.com/en/index-all.html
 
 ### Install using composer
 
@@ -13,7 +13,7 @@ http://docs.paytrail.com/en/index-all.html
 }
 ```
 
-# Usage E2 API
+# E2 API Usage
 
 ```php
 <?php
@@ -82,7 +82,7 @@ echo $form; die;
 
 ```
 
-# Confirming or Canceled a payment E2
+# E2 Confirming or Canceled a payment
 
 ```php
 
@@ -111,7 +111,7 @@ else {
 }
 ```
 
-# Usage REST API
+# REST API Usage
 
 ```php
 <?php
@@ -183,7 +183,7 @@ try {
 
 ```
 
-# Confirming a payment REST
+# REST API Confirming a payment
 
 ```php
 
@@ -208,7 +208,7 @@ else {
 }
 ```
 
-# Canceled a payment REST
+# REST API Canceled a payment
 
 ```php
 <?php
