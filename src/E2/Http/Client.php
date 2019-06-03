@@ -8,7 +8,7 @@
 
 namespace Paytrail\E2\Http;
 
-use Paytrail\Common\Object;
+use Paytrail\Common\BaseObject;
 use Paytrail\E2\Object\Payment;
 
 /**
@@ -16,7 +16,7 @@ use Paytrail\E2\Object\Payment;
  *
  * @package Paytrail\E2\Http
  */
-class Client extends Object
+class Client extends BaseObject
 {
 
     /**

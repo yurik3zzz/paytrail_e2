@@ -6,12 +6,12 @@
  * file that was distributed with this source code.
  */
 
-use Paytrail\Common\Object;
+use Paytrail\Common\BaseObject;
 
 /**
  * Class Dummy.
  */
-class Dummy extends Object
+class Dummy extends BaseObject
 {
 
     /**

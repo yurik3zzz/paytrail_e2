@@ -13,7 +13,7 @@ namespace Paytrail\Common;
  *
  * @package Paytrail\Common
  */
-abstract class DataObject extends Object
+abstract class DataObject extends BaseObject
 {
 
     /**

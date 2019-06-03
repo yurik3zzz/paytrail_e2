@@ -10,14 +10,14 @@
 
 namespace Paytrail\REST\Http;
 
-use Paytrail\Common\Object;
+use Paytrail\Common\BaseObject;
 
 /**
  * Class Result.
  *
  * @package Paytrail\Http
  */
-class Result extends Object
+class Result extends BaseObject
 {
 
     /**
